@@ -1,0 +1,73 @@
+---
+layout: post
+title: 'Test-driving the MCP2515 CAN Controller (Part 3): Taking a look at the SPI
+  bus'
+date: 2017-11-12 
+---
+<p>In this episode of the series we are going to focus a bit more on the target hardware. The driver code created during the <a href="https://steffen.ronalter.de/2017/10/15/test-driving-the-mcp2515-can-controller-part-2/">previous</a> two episodes is going to be compiled for the target microcontroller and programmed into flash memory. While it's only the <em>reset</em> functionality of the MCP2515 we can verify right now, I think it's a step into the right direction.</p>
+
+<!--more-->
+
+<h1>SPIDriver for ATmega32</h1>
+<p>Let's begin by creating a simple <em>SPIDriver</em> implementation that interfaces with the actual peripheral of the ATmega32 microcontroller (uC).  In the <a href="http://www.atmel.com/images/doc2503.pdf">datasheet</a>, all steps for transmitting and receiving single bytes via the SPI peripheral are described. There's even example code in C and assembler (page 134). Based on that information, we can create an implementation of the <em>SpiDriver</em> and put all the necessary code in there. The following code listing shows the definition of all the methods:<br />
+{% highlight cpp %}
+AvrSpiDriver::AvrSpiDriver() {
+    SPI_DDR |= (1<<SS_DD) | (1<<MOSI_DD)
+            | (1<<SCK_DD);
+    SPI_DDR &= ~(1<<MISO_DD);
+    SPCR =	(1<<SPE) |		// Enable
+    		(1<<MSTR) |		// Master
+    		(1<<SPR0);		// Clock rate
+}
+
+void AvrSpiDriver::select() {
+    SPI_PORT &= ~(1<<SS_P);
+}
+
+void AvrSpiDriver::deselect() {
+    SPI_PORT |= (1<<SS_P);
+}
+
+uint8_t AvrSpiDriver::read() {
+    SPDR = 0x00;
+    while(!(SPSR & (1<<SPIF)))
+        ;
+    return SPDR;
+}
+
+void AvrSpiDriver::write(uint8_t value) {
+    SPDR = value;
+    while(!(SPSR & (1<<SPIF)))
+        ;
+}
+
+{% endhighlight %}
+
+<p>In the constructor, the SPI peripheral is configured as bus master and enabled. The selection and deselection of the slave is done via a normal GPIO pin (<em>SS_P</em>). Reading and writing is done in the simplest way possible - without using interrupts.</p>
+<h1>Integration & Test</h1>
+<p>An <em>AvrSpiDriver</em> instance can be passed on to the <em>Mcp2515Core</em> (remember? the one created using TDD):<br />
+{% highlight cpp %}
+AvrSpiDriver spiDriver;
+Mcp2515Core<avrspidriver> mcpCore{spiDriver};
+{% endhighlight %}
+
+<p>In order to issue the <em>reset</em> command via SPI, we call the corresponding method:<br />
+{% highlight cpp %}
+mcpCore.reset();
+{% endhighlight %}
+
+<p>This yields the following output on the MOSI and CLK lines:<br />
+<a href="{{ site.baseurl }}/assets/MOSI-SCK-300x221.png"><img class="aligncenter size-medium wp-image-365" src="{{ site.baseurl }}/assets/MOSI-SCK-300x221.png" alt="" width="300" height="221" /></a></p>
+<p>In the picture you can see the actual RESET instruction <b>0xC0</b> transmitted via the MOSI line.</p>
+<p>The second oscilloscope screen shows the slave selection. The SPI slave is selected for (more than) the entire transmission period. Note that the time base has been changed between the two recordings.<br />
+<a href="{{ site.baseurl }}/assets/MOSI-SS-300x222.png"><img class="aligncenter size-medium wp-image-366" src="{{ site.baseurl }}/assets/MOSI-SS-300x222.png" alt="" width="300" height="222" /></a></p>
+<p>What we also see from the pictures is the clock polarity and phase. The <em>SCK</em> line is low when idle which is defined as clock polarity 0. Data is sampled on the rising edge of SCK. That means clock phase 0. These settings have been configured in the constructor of <em>AvrSpiDriver</em>. According to its <a href="http://ww1.microchip.com/downloads/en/DeviceDoc/21801d.pdf">datasheet</a>, the MCP2515 supports this mode (specified as <em>0,0</em>) and also mode <em>1,1</em>. </p>
+<h1>Conclusion</h1>
+<p>Of course, this is a very simple example. Anyway, we've set the basis for further development on the <em>Mcp2515Core</em> class. Ideally, we can now focus on the TDD cycle for a long time without having concerns about whether our code still works on the actual hardware. As long as the specification of the <em>SPIDriver</em> interface is sufficient, everything else can be verified without having to upload anything to the target board.</p>
+<p>The following class diagram shows the new implementation in context:<br />
+<a href="{{ site.baseurl }}/assets/class_diagram-300x142.png"><img src="{{ site.baseurl }}/assets/class_diagram-300x142.png" alt="" width="300" height="142" class="aligncenter size-medium wp-image-388" /></a></p>
+<p>As always, please let me know what you think about this article via twitter <a href="https://twitter.com/ronalterde">@ronalterde</a>!</p>
+<h1>Example Project</h1>
+<p>If you'd like to reproduce the above steps, you can download a make-based example project from <a href="https://github.com/ronalterde/mcp-tdd-part3">github.com/ronalterde/mcp-tdd-part3</a>. You can run that demo on your own AVR board. An MCP2515 is still not really necessary.</p>
+<p>The example is prepared for use with an ATmega32 together with an USBtiny programmer but probably can be adjusted to suit the needs of your target hardware.<br />
+</avrspidriver></p>

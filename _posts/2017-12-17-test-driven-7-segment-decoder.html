@@ -1,0 +1,112 @@
+---
+layout: post
+title: Test-driven 7-Segment Decoder
+date: 2017-12-17 20:51:47.000000000 +01:00
+---
+<p>This article is about creating a 7-segment display decoder in software. While this is probably considered a rather trivial task, it will serve as a good example for the discipline of Test-Driven Development (TDD). The motivation for a test-driven approach in this case is simple: being able to refactor later without the need to debug on hardware.</p>
+
+<!--more-->
+
+<p>Let's start by first examining the seven-segment display. As the respective <a href="https://en.wikipedia.org/wiki/Seven-segment_display">Wikipedia article</a> says, it consists of seven LEDs that can be driven individually. Each LED pin (either anode or cathode, depending on the flavor) is assigned <em>a</em> letter a through <em>g</em>.</p>
+<p><img src="{{ site.baseurl }}/assets/sevenseg-196x300.png" alt="" width="196" height="300" class="aligncenter size-medium wp-image-551" /><br />
+[image based on the Wikipedia drawing by <a href="https://commons.wikimedia.org/wiki/User:H2g2bob">H2g2bob</a>(<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>)]</p>
+<p>All we need to get started is a <em>truth table</em> that states how the input digits <em>0</em> through <em>9</em> are mapped to the seven outputs. It is also possible to display (hex) digits a through f, but we will leave that out for the sake of simplicity. Instead of writing down the entire table, let's just put that into a unit test.</p>
+
+<h2>TDD approach</h2>
+<p>Instead of implementing everything at once and test it later on, let's do it for each digit individually. After following that disciplice, we will end up with two things: a <em>test case</em> that resembles the truth table and the corresponding <em>production code</em> that makes that test pass (see the two listings below).</p>
+{% highlight cpp %}
+TEST(SevenSegmentDecoderTest, resemblesTruthTable) {
+//                Xgfedcba
+    ASSERT_EQ(	0b00111111, SevenSegmentDecoder::decode(0);
+    ASSERT_EQ(	0b00000110, SevenSegmentDecoder::decode(1);
+    ASSERT_EQ(	0b01011011, SevenSegmentDecoder::decode(2);
+    ASSERT_EQ(	0b01001111, SevenSegmentDecoder::decode(3);
+    ASSERT_EQ(	0b01100110, SevenSegmentDecoder::decode(4);
+    ASSERT_EQ(	0b01101101, SevenSegmentDecoder::decode(5);
+    ASSERT_EQ(	0b01111101, SevenSegmentDecoder::decode(6);
+    ASSERT_EQ(	0b00000111, SevenSegmentDecoder::decode(7);
+    ASSERT_EQ(	0b01111111, SevenSegmentDecoder::decode(8);
+    ASSERT_EQ(	0b01101111, SevenSegmentDecoder::decode(9);
+}
+{% endhighlight %}
+
+{% highlight cpp %}
+class SevenSegmentDecoder {
+public:
+	static uint8_t decode(uint8_t input) {
+		switch(input) {
+		case 0:
+			return 0b00111111;
+		case 1:
+			return 0b00000110;
+		case 2:
+			return 0b01011011;
+		case 3:
+			return 0b01001111;
+		case 4:
+			return 0b01100110;
+		case 5:
+			return 0b01101101;
+		case 6:
+			return 0b01111101;
+		case 7:
+			return 0b00000111;
+		case 8:
+			return 0b01111111;
+		case 9:
+			return 0b01101111;
+		default:
+			return 0;
+		}
+	}
+};
+{% endhighlight %}
+
+<p>This is a pretty good example for a pattern that arises sometimes (to me at least). Because test code and production code have a 1:1 mapping, the production code isn't any more <em>generic</em> than the test code.</p>
+<p>This feels weird to me and makes me think about how much sense a test-driven approach actually makes in such a scenario. Maybe testing after the fact would be sufficient here. <em>What do you think?</em></p>
+
+<h2>A (somewhat arbitrary) Refactoring</h2>
+<p>Anyways, to demonstrate the value of the test-driven approach chosen, let's do a refactoring of the production code. The idea is to construct a boolean expression for each of the output bits <em>a</em> through <em>g</em>. This is just another representation of the truth table from above and this approach is pretty common for creating logical circuits.</p>
+<p>The set of inputs is represented as a 4-digit binary number consisting of bits A through D. Then a column for each output bit is added, as shown in the table below (note that all bits are sorted most-significant first).</p>
+
+{% highlight cpp %}
+DCBA gfedcba
+0000 0111111
+0001 0000110
+0010 1011011
+0011 1001111
+0100 1100110
+0101 1101101
+0110 1111101
+0111 0000111
+1000 1111111
+1001 1101111
+{% endhighlight %}
+
+<p>Let's now create a boolean expression for output <em>a</em>. By looking at all rows from the table where output <em>a</em> is <em>'0'</em>, we can establish an output equation in <a href="https://en.wikipedia.org/wiki/Conjunctive_normal_form">Full Conjunctive Form (CNF)</a> (composed of "ANDs of ORs"):</p>
+<p><img src="{{ site.baseurl }}/assets/a.png" alt="" width="500" height="29" class="aligncenter size-full wp-image-584" /></p>
+<p>The CNF is chosen here because there are more '1's than '0's in the table. The same can be done for output <em>b</em> through <em>g</em>, utilizing either the CNF or <a href="https://en.wikipedia.org/wiki/Disjunctive_normal_form">DNF</a> representation:</p>
+<p><img src="{{ site.baseurl }}/assets/equations.png" alt="" width="500" height="514" class="aligncenter size-full wp-image-582" /></p>
+<p>Now here comes the interesting part. We put all the output equations right into the decode() function, replacing the previous implementation:</p>
+
+{% highlight cpp %}
+static uint8_t decode(uint8_t input) {
+	bool A = input & 0x01;
+	bool B = input & 0x02;
+	bool C = input & 0x04;
+	bool D = input & 0x08;
+	bool a = (!A | B | C | D) & (A | B | !C | D);
+	bool b = (!A | B | !C | D) & (A | !B | !C | D);
+	bool c = A | !B | C | D;
+	bool d = (!A | B | C | D) & (A | B | !C | D) & (!A| !B | !C | D);
+	bool e = (!A & !B & !C & !D) | (!A & B & !C & !D) | (!A & B & C & !D) | (!A & !B & !C & D);
+	bool f = (!A | B | C | D) & (A | !B | C | D) & (!A | !B | C | D) & (!A | !B | !C | D);
+	bool g = (A | B | C | D) & (!A | B | C | D) & (!A | !B | !C | D);
+	return (a | (b
+}
+{% endhighlight %}
+
+<p>As the structure of the code has been changed while maintaining identical behavior, we expect the test to pass. And it does! I've prepared a repository containing the code at <a href="https://github.com/ronalterde/sevenseg">github.com/ronalterde/sevenseg</a>.</p>
+<h2>Conclusion</h2>
+<p>I'm not sure if the refactoring made is actually an improvement. Probably the initial version of the production code is more readable. But still, it shows that using the TDD approach we are able to make sure we don't break anything. Without debugging on hardware of course.</p>
+<p>What do you think about the initial 1:1 mapping of the test and production code? That still feels awkward to me. Contact me on twitter: <a href="https://twitter.com/ronalterde">@ronalterde</a>.</p>

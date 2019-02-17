@@ -1,16 +1,13 @@
 ---
 layout: page
 title: About me
-subtitle: Why you'd want to go on a date with me
+subtitle: Who writes all that stuff?
 ---
 
-My name is Inigo Montoya. I have the following qualities:
+Hi, I'm Steffen. I create Embedded software for a living.
 
-- I rock a great mustache
-- I'm extremely loyal to my family
+I always strive to improve the quality of my code by studying new methods, paradigms and technologies.
 
-What else do you need?
+Besides that, I enjoy fine-tuning my text editor, low-level microcontroller programming, the Linux OS and playing around with my home espresso machine.
 
-### my history
-
-To be honest, I'm having some trouble remembering right now, so why don't you just watch [my movie](http://en.wikipedia.org/wiki/The_Princess_Bride_%28film%29) and it will answer **all** your questions.
+This blog is about my private projects, opinions are my own.

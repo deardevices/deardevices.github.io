@@ -1,0 +1,14 @@
+digraph graphname {
+	/* rankdir=LR; */
+	bgcolor="transparent";
+	fg [label="in foreground"]
+	bg [label="in background"]
+	S [shape = doublecircle]; S
+
+	S -> fg
+	fg -> suspended [label="[Ctrl-Z]"]
+	suspended -> fg [label="fg"]
+	suspended -> bg [label="bg"]
+	fg -> killed [label="[Ctrl-C]"]
+	bg -> fg [label="fg"]
+}

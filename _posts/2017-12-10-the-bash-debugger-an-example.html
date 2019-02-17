@@ -1,0 +1,50 @@
+---
+layout: post
+title: 'The bash debugger: an example'
+date: 2017-12-10 23:06:45.000000000 +01:00
+---
+<p>Sometimes you may find yourself in a situation where you need to actually debug a shell script you're currently writing. Especially in the initial phase of development, features like single-stepping feel quite handy.</p>
+<p>I this article we are going to look at two situations where the bash debugger (bashdb) is a great tool for shell scripting. I will also show you one bashdb feature I find really surprising.</p>
+
+<!--more-->
+
+<h2>Scenario A</h2>
+<p>Imagine a situation where you'd like to create a list of files and apply an operation on each of them afterwards. During debugging the script, you might feel the need to <strong>comment out some lines</strong> containing potentially dangerous statements to prevent operations on the wrong files.</p>
+<h2>Scenario B</h2>
+<p>The second scenario I've identified is also related to debugging. Sometimes I don't want to execute an entire script altogether but rather like to <strong>execute one line after another</strong> and check its particular effect on the (file) system. I would then usually place a <em>read</em> statement before each critical line so I can either break out (using <em>Ctrl-C</em>) or continue execution.</p>
+<p>As I've found out, both scenarios can be handled in an elegant way by using the bash debugger. Let's consider the following bash script:<br />
+{% highlight bash %}
+#!/bin/bash
+function dangerousOperation() {
+    echo "$1"
+}
+
+echo "Generating file list..."
+files=$(ls /etc)
+echo "Executing operation (potentially dangerous)..."
+dangerousOperation "$files"
+{% endhighlight %}
+
+<p>Note that the 'dangerous' operation is replaced by a harmless <em>echo</em> command in this case. According to scenario A, I would usually comment out the call to <em>dangerousOperation()</em> until I'm sure that the list of files generated is correct. For scenario B, a <em>read</em> right before that line would do.</p>
+<p>To demonstrate how the bash debugger can help here, I've prepared a short screencast for you:</p>
+<p><iframe width="420" height="315" src="https://www.youtube.com/embed/ex908vRc93o"><br />
+</iframe> </p>
+<p>Surprising for me is the <em>skip</em> command. Note that the function call hasn't been executed at all in this example!</p>
+<p>These are the commands used in the screencast:</p>
+<ul>
+<li>list</li>
+<li>step</li>
+<li>skip</li>
+</ul>
+<p>Some other commands and combinations worth checking:</p>
+<ul>
+<li>restart</li>
+<li>print $foo</li>
+<li>help</li>
+<li>continue</li>
+<li>list list</li>
+<li>step 3</li>
+<li>break</li>
+</ul>
+<p>Please refer to the <a href="http://bashdb.sourceforge.net/bashdb.html">bashdb docs</a> for detailed information. You can get the bash debugger via that package manager of your system, e.g. <em>apt-get install bashdb</em>.</p>
+<p>Do you have any experience with the bashdb? Please contact me on twitter: <a href="https://twitter.com/ronalterde">@ronalterde</a>.</p>

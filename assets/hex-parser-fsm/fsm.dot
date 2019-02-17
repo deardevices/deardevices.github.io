@@ -1,0 +1,34 @@
+digraph finite_state_machine {
+	bgcolor="transparent";
+
+    /* rankdir=LR; */
+    rankdir=TB;
+
+    node [shape = point ]; qi
+    node [shape = circle];
+    node [ label = "Start" ] q1;
+    node [ label = "ByteCount" ] q2;
+    node [ label = "Address" ] q3;
+    node [ label = "RecordType" ] q4;
+    node [ label = "Data" ] q5;
+    node [ label = "Checksum" ] q6;
+
+    qi -> q1;
+	q1 -> q2 [ label = "newData\n[\":\"]" ];
+	q2 -> q3 [ label = "newData\n[len == 2]" ];
+	q3 -> q4 [ label = "newData\n[len == 4]" ];
+	q4 -> q5 [ label = "newData\n[\"00\"]" ];
+	q4 -> q6 [ label = "newData\n[\"01\"]" ];
+	q5 -> q6 [ label = "newData\n[len as expected]" ];
+	q6 -> q1 [ label = "newData\n[len == 2,\nchecksum OK]" ];
+
+	/* Error edges: */
+    /* node [ label = "Error" ] q7; */
+	/* q1 -> q7 [ label = "" ]; */
+	/* q2 -> q7 [ label = "" ]; */
+	/* q3 -> q7 [ label = "" ]; */
+	/* q4 -> q7 [ label = "" ]; */
+	/* q5 -> q7 [ label = "" ]; */
+	/* q6 -> q7 [ label = "" ]; */
+	/* q7 -> q7 [ label = "" ]; */
+}

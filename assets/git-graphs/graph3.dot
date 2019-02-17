@@ -1,0 +1,7 @@
+digraph graphname {
+	bgcolor="transparent";
+	d -> b;
+	d -> c;
+	b -> a;
+	c -> a;
+}

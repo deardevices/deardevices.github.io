@@ -1,0 +1,73 @@
+---
+layout: post
+title: Passing heavy C++ objects by value
+date: 2017-11-05
+---
+<p>Big objects are traditionally passed to methods <strong>by reference</strong>. Some weeks ago I talked to a colleague about that and decided to investigate a bit further. As a result of my research I must admit that, starting with <em>C++11</em>, things have indeed changed. Depending on what happens inside the body of the called method, passing <strong>by value may be actually more efficient</strong>.</p>
+
+<!--more--><br />
+
+If you'd like to pass, let's say a pretty long <em>std::string</em>, into a method or function, which <a href="https://en.m.wikipedia.org/wiki/Parameter_(computer_programming)">parameter</a> type would you choose? See the following call of the function <em>f()</em>:
+{% highlight Cpp %}
+std::string foo{"verylong"};
+f(foo);
+{% endhighlight %}
+
+<p>In traditional C++ (<em>C++98</em>) there are three function signatures I can think of (<em>T</em> being a placeholder for e.g. <em>std::string</em>):<br />
+{% highlight Cpp %}
+void f(T param);
+void f(T& param);
+void f(const T& param);
+{% endhighlight %}
+
+<p>For the first one (<em>pass by value</em>), the argument of type <em>T</em> is copied into <em>param</em>. This copying may involve pretty expensive operations, hence we tend use this only for small objects. The second one uses <em>pass by reference</em>, allowing modification of the argument inside the function. In the third version, the argument is also passed by reference, but modification is prohibited.</p>
+<h2>Two use cases</h2>
+<p>Now, the debate is about the first and the third version of the function signature. What if the argument is a <em>big</em> object but we insist on passing it by <em>value</em>? We may distinguish two different cases here:</p>
+<p>1) The parameter is just used in the function:<br />
+{% highlight Cpp %}
+void f(T param) {
+	std::cout << param;
+}
+{% endhighlight %}
+
+<p>2) The parameter is copied:<br />
+{% highlight Cpp %}
+void f(T param) {
+	T copiedParam{param};
+	// ...
+}
+{% endhighlight %}
+
+<p>With 1), the copy is thrown away right away after accessing it a single time. We might prefer <em>const T&</em> here to avoid the copy entirely. But in example 2), the function needs to create a copy <em>anyway</em>. In traditional C++, this is also not a good way to go, because there are two copies created.</p>
+<h2>Modern C++</h2>
+<p>With C++11 and <em>move semantics</em>, this looks totally different. We can write the following:<br />
+{% highlight Cpp %}
+void f(T param) {
+	T movedParam{std::move(param)};
+}
+{% endhighlight %}
+
+<p>Now, depending on the type of the argument, there is either only one copy created or even <strong>no copies at all</strong>!</p>
+<p>If we pass in an <em>rvalue</em>, the argument still needs to be copied:<br />
+{% highlight Cpp %}
+std::string foo{"verylong"};
+f(foo);
+{% endhighlight %}
+
+<p>But in this use case, the copying needs to happen anyway. And because the parameter is moved (<em>not</em> copied) inside the function body, that's all.</p>
+<p>No what if the argument is an <em>rvalue</em>? This is the really interesting scenario:<br />
+{% highlight Cpp %}
+f("verylong");
+{% endhighlight %}
+
+<p>This is where the pass by value comes in really handy. The argument is first moved into the parameter and then moved again inside the function body. <em>No copy</em> involved!</p>
+<h2>Clues for the caller</h2>
+<p>This issue is also a matter of semantics. The user of an API may recognize what is going to happen to her arguments immediately from the function signature. A by-const-reference parameter would tell: "I will just use your argument or save a reference for later use". In contrast, a by-value parameter means: "I will take a copy of your argument or move it if possible".</p>
+<p>What do you think? Leave me a <em>comment</em> via twitter: <a href="https://twitter.com/ronalterde">@ronalterde</a>.</p>
+<h2>Good Reads</h2>
+<ul>
+<li><a href="https://stackoverflow.com/questions/16724657/why-do-we-copy-then-move">Great explanation on Stack Overflow</a></li>
+<li><a href="https://stackoverflow.com/questions/270408/is-it-better-in-c-to-pass-by-value-or-pass-by-constant-reference">Another good Stack Overflow question</a></li>
+<li><a href="https://herbsutter.com/2013/05/20/gotw-4-class-mechanics/">Blog post by Herb Sutter containing relevant guidelines</a></li>
+<li>Scott Meyers - Effective Modern C++: In-depth discussion of lvalue and rvalue (among other topics)</li>
+</ul>

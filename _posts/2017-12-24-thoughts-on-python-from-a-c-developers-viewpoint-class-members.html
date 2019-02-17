@@ -1,0 +1,59 @@
+---
+layout: post
+title: 'Thoughts on Python from a C++ developer''s viewpoint: Class members'
+date: 2017-12-24 
+---
+<p>In this series of articles I will present some random things I've noticed when I started studying the Python programming language a while ago. I'm actually not very experienced in the language yet, as I don't get in touch with it that often. But I think if you also do your programming mainly in C++ and tend to use Python now and then, this might be for you.</p>
+
+<!--more-->
+
+<p>This article is about <em>class members</em>. When I wrote my first Python class, I started off just as usual -- by creating a class and putting in some methods and member variables.</p>
+<p>Everything went fine up to the moment I realized that all instances of that class happened to <strong>share the same internal state</strong>. After some research on the web, I've found a perfect example from the <a href="https://docs.python.org/3/tutorial/classes.html#class-and-instance-variables">Python docs</a>, so let's just take a look at it.</p>
+
+{% highlight python %}
+class Dog:
+    tricks = []
+    def __init__(self, name):
+        self.name = name
+    def add_trick(self, trick):
+        self.tricks.append(trick)
+    if __name__ == '__main__':
+        d = Dog('Fido')
+        e = Dog('Buddy')
+        d.add_trick('roll over')
+        e.add_trick('play dead')
+        print(d.tricks)
+        print(e.tricks)
+{% endhighlight %}
+
+<p>On execution, the output is the following:</p>
+{% highlight python %}
+['roll over', 'play dead']
+['roll over', 'play dead']
+{% endhighlight %}
+
+<p>As we can see, both class instances apparently share a single instance of the <em>tricks</em> list and operate on it.</p>
+<p>The docs also state the solution to the problem, of course. Instead of declaring the <em>tricks</em> list inside the class, we simply assign the desired initial value to <em>self.tricks</em> at the first usage:</p>
+{% highlight python %}
+class Dog:
+    def __init__(self):
+        self.tricks = []
+{% endhighlight %}
+
+<p>Why did I even consider writing <em>tricks = []</em> in the first place, you might ask. I think that idea arouse from the corresponding C++ notation:</p>
+{% highlight cpp %}
+class Dog {
+public:
+	void addTrick(const std::string& trick) {
+		tricks.push_back(trick);
+	}
+private:
+	std::vector<std::string> tricks;
+};
+{% endhighlight %}
+
+<p>Here, the class attribute always needs to be declared explicitly.</p>
+
+<h2>Conclusion</h2>
+<p>In Python, there is no need to declare instance members explicitly. We simply write <em>self.foo</em> at first usage.</p>
+<p>I the subsequent episodes of the series, I will probably write about the interactive Python interpreter, the style guide and some other interesting topics. Feel free to contact me on twitter: <a href="https://twitter.com/ronalterde">@ronalterde</a>.<br />

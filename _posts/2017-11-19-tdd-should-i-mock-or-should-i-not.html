@@ -1,0 +1,28 @@
+---
+layout: post
+title: TDD - Should I mock or should I not?
+date: 2017-11-19 
+---
+
+<p>Today I'm going to share an observation I made recently, related to Test-Driven Development (TDD).</p>
+<p><a href="{{ site.baseurl }}/assets/title2-300x137.png"><img src="{{ site.baseurl }}/assets/title2-300x137.png" alt="" width="300" height="137" class="aligncenter size-medium wp-image-131" /></a></p>
+
+<!--more-->
+
+<p>I've been studying and practicing TDD for about three years now, mostly while developing in C and C++. Starting with a test-after approach using a <a href="http://www.throwtheswitch.org/unity/">simple single-header-file unit testing framework</a>, I focused on testing small modules with very isolated behavior. As soon as they were ready, I would put them right into the system, surrounded by some other non-unittested modules making use of that particular tested behavior. This was already a huge step compared to the traditional debug-later programming approach (DLP, see reference to James Grenning's blog), because the main logic could be easily verified without even touching a debugger.</p>
+
+
+<p>After a while I discovered the discipline of TDD, in particular the <em>mockist</em> approach, as it turned out to be. I was now eager to create all units in total isolation, decoupled from each other by interfaces (meanwhile I switched over to C++, which has abstract base classes).</p>
+<p>This felt like the right thing to do, hopefully leading to the best possible class design. Sure, after some time I noticed one of the drawbacks: every change in the interface of a dependent class leads to at least two other changes - one in the test implementation and another in the production one. This feels like redundancy introduced just for the sake of testing.</p>
+<p>Some months later I heard about a different approach: using existing (production) classes as collaborators in unit tests. Seriously? I was surprised - somehow, that felt wrong. Fortunately, after some research, I found <a href="https://martinfowler.com/articles/mocksArentStubs.html">Martin Fowler's article</a> on the topic that really made some things clear to me.</p>
+<p>Fowler makes a distinction between a classical and a mockist approach to TDD. While the classical methodology utilizes both state and behavior verification, the mockist approach solely depends on the latter. From my experience, behavior verification is what <em>mocking frameworks</em> (like Google Mock) suggest.</p>
+<p>While I considered it <em>misuse to instantiate real objects as collaborators</em> in unit tests, Fowler states that many classicist TDDers only use test doubles (Mock, Stub, Spy, ...) if working with real objects would be too awkward. While reading those words, this slowly started to make sense to me. The biggest concern I still have is related to the <em>locality</em> of the unit tests. What if many tests fail because of a small change in one of the collaborators? As he also mentions, it may indeed be harder to track down the actual failing test in such a case. Combined with a short TDD cycle however, the last working state is just some undo steps away.</p>
+<p>For me, an advantage compared to the mockist approach is that <em>without test doubles there is no need for any extra interfaces</em>, which makes the whole design more readable. Aside from that, there definitely are cases where test doubles are necessary. For dependencies to file systems and device drivers, there is often no sensible way to use real objects in unit tests. The same probably applies to layer boundaries inside an application, where mocking another subsystem might be the way to go. </p>
+<h2>Conclusion</h2>
+<p>Mocking is obviously not the only possible approach to TDD. I have learned that there is nothing wrong with using real objects in test code. Maybe it's a good idea to stick with that approach for most of the time and consider using test doubles a last resort. The same might be said for mocking.</p>
+<p>Are you experienced in TDD? Which approach do you prefer? As this way of writing code is actually pretty new to me, I would really like to know your opinion on that topic. Feel free to contact me on twitter: <a href="https://twitter.com/ronalterde">@ronalterde</a>.</p>
+<h2>References</h2>
+<p><a href="https://martinfowler.com/articles/mocksArentStubs.html">Martin Fowler - Mocks Aren't Stubs</a><br />
+<a href="http://blog.wingman-sw.com/archives/16">James Grenning - Physics of Test Driven Development</a><br />
+<a href="http://www.throwtheswitch.org/unity/">Unity - C Unit Testing Framework</a><br />
+<a href="https://github.com/google/googletest">Google Test - C++ Unit Testing Framework</a></p>

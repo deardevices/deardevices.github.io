@@ -1,0 +1,114 @@
+---
+layout: post
+title: Test-driving the MCP2515 CAN Controller (Part 2)
+date: 2017-10-15
+---
+
+<p>It turns out the device driver design established <a href="http://steffen.ronalter.de/2017/10/08/test-driving-the-mcp2515-can-controller-part-1/">previously</a> has a serious drawback. While the <em>SpiDriver</em> interface enables unit testing, the cost of polymorphism has to be paid also in production code. In this article you are going to see how high that cost is, i.e. how much extra code the compiler actually generates for providing virtual methods. We will also introduce one possible solution to overcome that additional cost.</p>
+
+<!--more-->
+
+<p><img src="{{ site.baseurl }}/assets/title2.png" alt="" width="300" height="137" class="aligncenter size-full wp-image-131" /></p>
+<h2>Decision making</h2>
+<p>What has been implemented so far is also known as <em>dynamic polymorphism</em>. The concrete implementation a particular client uses can be exchanged even at runtime. This is actually a lot more than what we originally asked for - exercising the driver using mock objects during testing, and using real ones in production. The decision for one of those two possible implementations is deferred to runtime. If we were able to make that decision at compile already, we could apply some technique that's called <em>static (or parametric)</em> polymorphism. </p>
+<h2>Analysis of the initial version</h2>
+<p>This is the driver how we created it in the first part of the series, but slightly renamed:<br />
+{% highlight cpp %}
+class Mcp2515CoreDynamic {
+public:
+	Mcp2515CoreDynamic(SpiDriver& spiDriver) :
+		spiDriver(spiDriver) {
+	}
+	void reset() {
+		spiDriver.select();
+		spiDriver.write(0xC0);
+		spiDriver.deselect();
+	}
+private:
+	SpiDriver& spiDriver;
+};
+{% endhighlight %}
+
+<p>Let's create an instance of that class using some dummy SPI driver and call the <em>reset()</em> method:<br />
+{% highlight cpp %}
+DummySpiDriver spiDriver;
+Mcp2515CoreDynamic mcpCore{spiDriver};
+mcpCore.reset();
+{% endhighlight %}
+
+<p>Here is the block of AVR instructions that the compiler generates for calling <em>DummySpiDriver::select()</em> via the base class reference:<br />
+{% highlight asm %}
+ldd r24,Y+1
+ldd r25,Y+2
+movw r30,r24
+ld r24,Z
+ldd r25,Z+1
+movw r30,r24
+ld r24,Z
+ldd r25,Z+1
+adiw r24,4
+movw r30,r24
+ld r18,Z
+ldd r19,Z+1
+ldd r24,Y+1
+ldd r25,Y+2
+movw r30,r24
+ld r24,Z
+ldd r25,Z+1
+movw r30,r18
+icall
+{% endhighlight %}
+
+<p>After studying the <a href="https://en.wikipedia.org/wiki/Atmel_AVR_instruction_set">AVR instruction set</a> and the <a href="https://gcc.gnu.org/wiki/avr-gcc">ABI description of avr-gcc</a>, one might get an idea what is happening here:</p>
+<p>The <em>spiDriver</em> object maintains an internal pointer to a table of function pointers (<em>vtable</em>) to enable polymorphism. If we now look at the very last instruction in the previous assembler listing, we'll find an <em>indirect</em> call. It's indirect because it calls a subroutine in program memory where the <em>Z pointer</em> (register pair 31,30) is pointing at. This pointer position has to be determined before the call and that's what most of the preceding instructions do.</p>
+<h2>Another approach</h2>
+<p>Now, let's convert that example to static polymorphism. In the next code block, you can see the modified and renamed <em>Mpc2515Core</em> class that takes an <em>SpiDriver</em> as a template parameter:<br />
+{% highlight cpp %}
+template <typename SpiDriver>
+class Mcp2515CoreStatic {
+public:
+	Mcp2515CoreStatic(SpiDriver& spiDriver) :
+		spiDriver(spiDriver) {
+	}
+	void reset() {
+		spiDriver.select();
+		spiDriver.write(0xC0);
+		spiDriver.deselect();
+	}
+private:
+	SpiDriver& spiDriver;
+};
+{% endhighlight %}
+
+<p>This is how it is instantiated:<br />
+{% highlight cpp %}
+DummySpiDriver spiDriver;
+Mcp2515CoreStatic<dummyspidriver> mcpCore{spiDriver};
+mcpCore.reset();
+{% endhighlight %}
+
+<p>Now let's look at the AVR assembler generated for the call to <em>DummySpiDriver::select()</em> via the template parameter:<br />
+{% highlight asm %}
+ldd r24,Y+1
+ldd r25,Y+2
+movw r30,r24
+ld r24,Z
+ldd r25,Z+1
+call DummySpiDriver::select()
+{% endhighlight %}
+
+<p>This time the code block is much shorter. In particular, the <em>icall</em> has been replaced by a <em>call</em> instruction. In fact, now there is no difference to calling a normal (non-virtual) class method.<br />
+I haven't yet figured out the purpose of the preceding instructions though. They eventually lead to some state in registers 25:24 which is then stored inside of the frame of the select() method. This part of the code is actually identical to the first lines of the dynamic polymorphism example. I would really appreciate any explanation on that via twitter.</p>
+<h2>Conclusion</h2>
+<p>In this example the difference in program size between static and dynamic polymorphism is more than 30%, considering only the virtual method calls themselves. The total ratio is probably even higher, because the vtable also has to be put in place at initialization.</p>
+<p>In some applications, increased program size alone might suffice to rule out dynamic polymorphism. The same is probably true for decreased execution speed. In such cases, static polymorphism seems to be an appropriate means to decouple objects and ensure testability. Because we would never sacrifice testability to preliminary optimization, would we? ;-)</p>
+<p>Please let me know what you think about this article via twitter <strong>@ronalterde</strong>!</p>
+<h2>Sample code</h2>
+<p>To reproduce the examples in the article, you can either just take a look at the code using an <a href="https://godbolt.org/">online C++ compiler</a> or install the AVR gcc toolchain, get the example project from <a href="https://github.com/ronalterde/mcp-tdd-part2">github.com/ronalterde/mcp-tdd-part2</a> and build it yourself.</p>
+<p>You can download the AVR toolchain from Atmel (now Microchip) or your can build it from sources. There might also be a package available in your OS distribution.</p>
+<h2>References</h2>
+<p><a href="https://en.wikipedia.org/wiki/Function_prologue">Wikipedia: Function prologue</a></p>
+<p><a href="http://www.nongnu.org/avr-libc/user-manual/FAQ.html#faq_reg_usage">AVR-lib user manual: Register usage</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Polymorphism_(computer_science)">Wikipedia: Polymorphism</a></p>
+<p><a href="https://gcc.gnu.org/wiki/avr-gcc">avr-gcc ABI description</a></p>
+<p></dummyspidriver></typename></p>

@@ -1,0 +1,61 @@
+---
+layout: post
+title: AVR sleep mode for fun and profit (part 2)
+date: 2017-12-03 17:26:06.000000000 +01:00
+---
+<p>In the first part of this article we managed to put the AVR into power-down mode and were thereby able to lower the current consumption in idle mode to <em>0.0 mA</em>. While this is great compared to the <em>22 mA</em> before any optimization, there is no way to wake up the controller yet to do some actual work. This is what we're going to do in this episode.</p>
+
+<!--more-->
+
+<p>The goal is to wake up the AVR via a button connected to one of the GPIOs, turn on an LED for two seconds and then put the controller back into sleep mode. For this to work, the first action is to configure the GPIOs for both the wake-up button and the LED.<br />
+{% highlight cpp %}
+static void configurePortPins() {
+	DDRB |= (1<<PB6); // Output LED
+	DDRB &= ~(1<<PB2); // INT2 input
+	PORTB |= (1<<PB2); // pull-up for INT2
+}
+{% endhighlight %}
+
+<p><em>PB2</em> has been chosen to serve as the button input because it can be used as an external interrupt source called <em>INT2</em>. As the other pin of the wake-up button is connected to GND, the internal pull-up resistor is enabled. </p>
+<p>The next step is the interrupt configuration. Note that <em>INT2</em> is the only external interrupt pin that can be triggered by an input edge while the controller is in power-down mode (data sheet <em>page 66</em>). For INT0 and INT1, edge triggering is not an option because they rely on the I/O clock (which is halted in power-down mode).<br />
+{% highlight cpp %}
+static void configureInterrupts() {
+	// Enable interrupt on falling edge of INT2
+	MCUCSR &= ~(1<<ISC2);
+	GICR |= (1<<INT2);
+
+	// Enable interrupts globally
+	sei();
+}
+{% endhighlight %}
+
+<p>Now the controller can be woken up via a falling edge on PB2. After triggering, program execution continues after the sleep instruction issued withing the main loop. Although there is no actual interrupt handling required, an interrupt service routine (ISR) implementation must be provided (why?):<br />
+{% highlight cpp %}
+ISR(INT2_vect) {
+}
+{% endhighlight %}
+
+<p>The new <em>main()</em> function looks like this:<br />
+{% highlight cpp %}
+int main(void) {
+	configurePortPins();
+	configureInterrupts();
+	while(1) {
+		setSleepModePowerDown();
+		enterSleepMode();
+		disableSleepMode();
+		toggleLED();
+	}
+	return 0;
+}
+{% endhighlight %}
+
+<p>The sleep instruction mentioned above is executed inside of <em>enterSleepMode()</em>. On wake-up, this function returns so <em>toggleLED()</em> is called. Refer to the example repository at <a href="https://github.com/ronalterde/avr-sleep">github.com/ronalterde/avr-sleep</a> for the complete working program. As promised, I extended the repo so it now contains both the code for the first part and also for the current one.</p>
+<h2>Conclusion</h2>
+<p>While the microcontroller still consumes almost nothing in idle mode, it can be immediately woken up by a single key press. See the following video how this looks like (note the current measurement in the background):</p>
+<p><iframe width="420" height="315" src="https://www.youtube.com/embed/FRhIwwiUJqQ"><br />
+</iframe> </p>
+<p>As always, if you have any thoughts on my blog post, feel free to contact me on twitter: <a href="https://twitter.com/ronalterde">@ronalterde</a>.</p>
+<h2>References</h2>
+<p><a href="http://steffen.ronalter.de/2017/11/26/avr-sleep-mode-for-fun-and-profit/">Blog Article part 1</a><br />
+<a href="http://www.atmel.com/images/doc2503.pdf">ATmega32 Datasheet</a></p>

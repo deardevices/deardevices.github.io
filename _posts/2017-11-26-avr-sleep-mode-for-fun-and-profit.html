@@ -1,0 +1,58 @@
+---
+layout: post
+title: AVR sleep mode for fun and profit
+date: 2017-11-26 11:59:53.000000000 +01:00
+---
+
+<p>Today's blog article is about how to <em>optimize the power consumption</em> of an AVR microcontroller running on batteries.</p>
+<p>We're going to explore one of the ATmega32's sleep modes and how it affects power consumption. We will eventually reach a state where it actually makes sense to power the device from batteries. Besides sleeping, the microcontroller should do some work for us, requested by a single button press.</p>
+<p><a href="{{ site.baseurl }}/assets/powerdown-150x150.jpg"><img src="{{ site.baseurl }}/assets/powerdown-150x150.jpg" alt="" width="150" height="150" class="aligncenter size-thumbnail wp-image-453" /></a></p>
+
+<!--more-->
+
+So let's get started. The microcontroller board we'll use for this example is built around an ATmega32 clocked by an external 16 MHz quartz crystal. There is a button connected to PB2 and an LED connected to PB6. The button will later be utilized for waking up the device, so we can make the LED light up for two seconds to indicate the wake up.
+<p>In the initial configuration, the microcontroller draws about <em>22 mA</em> from the batteries without doing anything (LED off). For a battery capacity of 1900 mAh this means:</p>
+
+<p>
+1900 mAh / 22 mA = 86 h<br />
+</p>
+
+<p>This leaves us with less than <em>four days</em> until we need to change batteries -- not even taking into account that we probably might want to drive our LED at some intervals during that period. Let's see if the AVR has something built in that we can use to improve that.</p>
+<h2>Entering power-down mode</h2>
+<p>The ATmega32 offers six sleep modes. For maximum power saving, the 'power-down' mode might be a good fit. According to the datasheet, in this mode the external oscillator is stopped while external interrupts stay active. This mode "basically halts all clocks".</p>
+<p>On page 32 in the datasheet, the sequence necessary for putting the device into power-down mode is described as follows:<br />
+1) Select sleep mode<br />
+2) Set sleep enable bit<br />
+3) Execute sleep instruction<br />
+4) Clear sleep enable bit after wake up</p>
+<p>Represented in code, this would look like:<br />
+{% highlight cpp %}
+// 1)
+MCUCR &= ~(1<<SM2);
+MCUCR |= (1<<SM1);
+MCUCR &= ~(1<<SM0);
+
+// 2)
+MCUCR |= (1<<SE);
+
+// 3)
+asm volatile("sleep");
+
+// 4)
+MCUCR &= ~(1<<SE);
+{% endhighlight %}
+
+<p>After executing these lines, the current consumption goes down significantly to <strong>0.6 mA</strong>. Using the same batteries as in the calculation above, this would give us about <strong>130 days</strong>.<br />
+This is already pretty good compared to the initial situation. As a second optimization it might be interesting to see where the remaining 600 uA come from. Is there anything we can possibly do to eliminate that current flow as well?</p>
+<h2>A look at the fuses</h2>
+<p>Hoping to find an answer to this question, let's check the fuse settings of the device. In the example above, the AVR fuses were actually set to 0x3e98, which is essentially the default settings plus the configuration for the external quartz.</p>
+<p>We can refer to the datasheet or use <a href="http://www.engbedded.com/fusecalc/">this AVR fuse calculator</a> to determine the meaning of each bit in the fuse bytes.</p>
+<p>You may notice by looking at the tables that (among others) the <em>JTAG</em> debugging interface is enabled. What happens if we turn it off for now? Flipping the JTAG bit results in 0x3e<strong>d</strong>8. Of course, we won't be able to debug the controller anymore, but: <strong>0.0 mA</strong> current consumption! That is, as accurate as the internal current measurement of my power supply is.</p>
+<h2>Conclusion / Outlook</h2>
+<p>I'm sure you've noticed that we are not done yet. We still need to wire up the wake-up button so a key press is recognized by the sleeping microcontroller. After that, switching on the LED for two seconds will be the easiest part. Can't wait to get into these topics in the next episode!   </p>
+<p>By the way, you can find the code for this little example at <a href="https://github.com/ronalterde/avr-sleep">github.com/ronalterde/avr-sleep</a>. We will most likely extend that later.</p>
+<p>If you have any remarks, please contact me on twitter: <a href="https://twitter.com/ronalterde">@ronalterde</a>.</p>
+<h2>References</h2>
+<p><a href="https://www.microchip.com/wwwproducts/en/ATmega32">ATmega32 Datasheet</a><br />
+<a href="http://www.engbedded.com/fusecalc/">AVR fuse calculator</a><br />
+<a href="http://www.nongnu.org/avr-libc/user-manual/inline_asm.html">avr-libc manual: inline assembler</a></p>

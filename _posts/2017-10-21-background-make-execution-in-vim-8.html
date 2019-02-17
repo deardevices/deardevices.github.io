@@ -1,0 +1,56 @@
+---
+layout: post
+title: Background make execution in Vim 8
+date: 2017-10-21 
+---
+
+<p>Version 8 of the <em>Vim</em> text editor introduced a great new feature for executing processes asynchronously. In this article I'm going to show you a plugin that makes use of these <em>async jobs</em> and how I utilize them to build a C++ project in the background.</p>
+
+<!--more-->
+
+<p><a href="https://github.com/skywind3000/asyncrun.vim">AsyncRun</a> is a plugin that is built around the new <a href="http://vimhelp.appspot.com/channel.txt.html#job-start">job_start</a> vimscript function to execute processes and let them run in background. As it doesn't rely on any external environment (tmux, screen, etc.) to accomplish that, it works in GUI Vim just as well as in the terminal.</p>
+<p>The following screencast shows a traditional synchronous make call followed by an execution of AsyncRun: </p>
+<p><iframe width="420" height="315" src="https://www.youtube.com/embed/eHAVW2qO7Tw"><br />
+</iframe> </p>
+<p>To get the neat <em>success</em> marker in <a href="https://github.com/vim-airline/vim-airline">vim airline</a>, you can put the following code snippet into your ~/.vimrc:</p>
+{% highlight vim %}
+function! AirlineThemePatch(palette)
+  " [ guifg, guibg, ctermfg, ctermbg, opts ].
+  let a:palette.accents.my_green = [ '#00ff00', '' , "green", '']
+endfunction
+
+let g:airline_theme_patch_func = 'AirlineThemePatch'
+let g:async_status_old = ''
+
+function! Get_asyncrun_running()
+  let async_status = g:asyncrun_status
+  if async_status != g:async_status_old
+    if async_status == 'running'
+      call airline#parts#define_accent('asyncrun_status', 'none')
+    elseif async_status == 'success'
+      call airline#parts#define_accent('asyncrun_status', 'my_green')
+    elseif async_status == 'failure'
+      call airline#parts#define_accent('asyncrun_status', 'red')
+    endif
+    let g:airline_section_x = airline#section#create(['asyncrun_status'])
+    AirlineRefresh
+    let g:async_status_old = async_status
+  endif
+  return async_status
+endfunction
+
+call airline#parts#define_function('asyncrun_status', 'Get_asyncrun_running')
+let g:airline_section_x = airline#section#create_right(['asyncrun_status'])
+{% endhighlight %}
+
+<p>Note: I got this snippet from a <a href="https://github.com/vim-airline/vim-airline/issues/1557">github issue page</a> related to the vim-airline project.</p>
+<p>To use the async job feature you will probably need to update your currently installed Vim. The <a href="https://github.com/vim/vim">github.com/vim/vim</a> offers some ways how to do that. You can find further information via the Vim help:<br />
+{% highlight vim %}
+:help channel.txt
+:help job_start
+{% endhighlight %}
+
+<h2>Further thoughts</h2>
+<p>For me there's still the question why we need an external plugin for that functionality. At the moment Vim 8 was announced, my first thought was: "finally we can use some extension to the ! command and throw away that plugin (vim-dispatch)!". Of course, after a quick peek over the AsyncRun code with my limited understanding of vimscript, I see there are plenty of other things to do besides executing a background process. So, probably we do need an external plugin. That said, I do like Tim Pope's <a href="https://github.com/tpope/vim-dispatch">vim-dispatch</a> plugin very much and would really appreciate Vim 8 support.</p>
+<p>There are some performance considerations as well. Echoing a 500 line text file using AsyncRun takes about 3 seconds. This makes it nearly impractical to run unit tests in a TDD environment. This has to be further evaluated though.</p>
+<p>What do you think? Leave me a <em>comment</em> via twitter: <a href="https://twitter.com/ronalterde">@ronalterde</a>.</p>

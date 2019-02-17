@@ -1,0 +1,198 @@
+---
+layout: post
+title: Test-driving the MCP2515 CAN Controller (Part 1)
+date: 2017-10-08 
+---
+
+<p>So you are pretty much into Test-Driven Development (TDD)? You love to practice it on your development machine but think it might be quite a hassle when it comes to writing code for small microcontrollers?</p>
+<p>In this blog article we are going to take a journey to Embedded TDD using the MCP2515 Controller Area Network (CAN) controller as an example. We will begin to write a <em>device driver</em> for that particular controller without even having any working hardware at hand....</p>
+
+<!--more-->
+
+<p>Of course, eventually in another part of this series we will compile our code for the target platform, upload it and see if it really works.</p>
+
+
+<p><img src="{{ site.baseurl }}/assets/title2.png" alt="" width="300" height="137" class="aligncenter size-full wp-image-131" /></p>
+<h2>What we need</h2>
+<p>For the first part of this series we will stick to our host development system so there's no additional hardware necessary. This is what you need to follow along:</p>
+<ul>
+<li>A working C++11 toolchain (let's say gcc)</li>
+<li>GNU make</li>
+<li>A text editor or C++ IDE</li>
+<li><a href="http://ww1.microchip.com/downloads/en/DeviceDoc/21801d.pdf">MCP2515 Datasheet</a></li>
+</ul>
+<p>Don't worry about setting up the tools just yet. You will find a link to a make-based project at the end of the article.</p>
+<h2>Abstraction of the SPI interface</h2>
+<p>The communication between CAN controller and microcontroller (uC) is based on SPI where the uC acts as the bus master. So let's create a C++ class that represents the logical point-to-point connection between these two devices.</p>
+{% highlight cpp %}
+class SpiDriver {
+public:
+	virtual ~SpiDriver() {}
+	virtual void select() = 0;
+	virtual void deselect() = 0;
+	virtual uint8_t read() = 0;
+	virtual void write(uint8_t value) = 0;
+};
+{% endhighlight %}
+
+<p>This is an abstract base class that defines how to access a particular SPI connection. Later, we may provide both a test implementation we utilize during unit testing and a real one that does the actual work on the target platform.</p>
+<h2>Desired behavior: defined by the data sheet</h2>
+<p>In chapter 12 of the MCP2515 data sheet, the manufacturer defines a set of SPI instructions the chip supports. The first one, the <em>RESET</em> instruction, shall be taken as an example for now. According to the document, the effect of this instruction is equivalent to pulling the reset pin of the controller.</p>
+<p>We want a class that represents the core functionality of the MCP and provides a method - among others - called <em>reset()</em>, corresponding to that particular core instruction of the device. Calling <em>reset()</em> should yield an SPI write of one byte, 0xC0. The Chip Select line (low-active, nCS) should be low during that write and high otherwise.</p>
+<h2>Test harness preparation</h2>
+<p>To get started, let's prepare the <em>SpiDriver</em> implementation we are going to use for unit testing.</p>
+<p>There are several possibilities on how to do that, though. We may create a simple <em>spy</em>, whose state is evaluated  after exercising the code under test. Another approach is to use a <em>mock</em>: before exercising the code under test, the mock is configured to listen for specific method calls that follow. Afterwards, the test framework checks if all these expectations are met. That way not the state of the SpiDriver is evaluated but the actions that are executed on it. More about the difference between mocks and spies can be found in this article by Martin Fowler: <a href="https://martinfowler.com/articles/mocksArentStubs.html">Mocks Aren't Stubs</a>.</p>
+<p>For this particular scenario the mock might be a good fit, because the order and exact number of SPI actions executed is important to the behavior we'd like to achieve. Especially the synchronization between <em>select()</em> and <em>write()</em> is crucial.</p>
+<p>This is the mock implementation of SpiDriver in <em>GoogleMock</em> syntax:<br />
+{% highlight cpp %}
+class MockSpiDriver : public SpiDriver {
+public:
+	MOCK_METHOD0(select, void());
+	MOCK_METHOD0(deselect, void());
+	MOCK_METHOD0(read, uint8_t());
+	MOCK_METHOD1(write, void(uint8_t));
+};
+{% endhighlight %}
+
+<p>Additionally, we create a <em>test fixture</em> where we will put all of our tests:<br />
+{% highlight cpp %}
+class Mcp2515CoreTest : public Test {
+};
+{% endhighlight %}
+
+<h2>Implementation</h2>
+<p>Ok, let's dive into the <em>nano cycle</em> <sup><a href="#fn-1" id="fnref-1">1</a></sup> of TDD by adding the first failing test:</p>
+{% highlight cpp %}
+TEST_F(Mcp2515CoreTest, construction) {
+	Mcp2515Core mcp;
+}
+{% endhighlight %}
+
+<p>We can fix this by creating an empty class definition:</p>
+{% highlight cpp %}
+class Mcp2515Core {
+};
+{% endhighlight %}
+
+<p>Add a dependency to SpiDriver:</p>
+{% highlight cpp %}
+TEST_F(Mcp2515CoreTest, construction) {
+	MockSpiDriver spiDriver;
+	Mcp2515Core mcp{spiDriver};
+}
+{% endhighlight %}
+
+<p>Add this to the code under test:</p>
+{% highlight cpp %}
+class Mcp2515Core {
+public:
+	Mcp2515Core(SpiDriver& spiDriver) {
+	}
+};
+{% endhighlight %}
+
+<p>Enforce the reset() method:<br />
+{% highlight cpp %}
+TEST_F(Mcp2515CoreTest, reset) {
+	MockSpiDriver spiDriver;
+	Mcp2515Core mcp{spiDriver};
+	mcp.reset();
+}
+{% endhighlight %}
+
+<p>Implement it:<br />
+{% highlight cpp %}
+class Mcp2515Core {
+public:
+	Mcp2515Core(SpiDriver& spiDriver) {
+	}
+
+	void reset() {
+	}
+};
+{% endhighlight %}
+
+<p>Let's see if the nCS line is pulled low and then high:<br />
+{% highlight cpp %}
+TEST_F(Mcp2515CoreTest, reset) {
+	MockSpiDriver spiDriver;
+	Mcp2515Core mcp{spiDriver};
+
+	InSequence inSequence;
+	EXPECT_CALL(spiDriver, select());
+	EXPECT_CALL(spiDriver, deselect());
+
+	mcp.reset();
+}
+{% endhighlight %}
+
+<p>Implement this one:<br />
+{% highlight cpp %}
+class Mcp2515Core {
+public:
+	Mcp2515Core(SpiDriver& spiDriver) :
+		spiDriver(spiDriver) {
+	}
+
+	void reset() {
+		spiDriver.select();
+		spiDriver.deselect();
+	}
+
+private:
+	SpiDriver& spiDriver;
+};
+{% endhighlight %}
+
+<p>Now ask for the actual data byte:<br />
+{% highlight cpp %}
+TEST_F(Mcp2515CoreTest, reset) {
+	MockSpiDriver spiDriver;
+	Mcp2515Core mcp{spiDriver};
+
+	InSequence inSequence;
+	EXPECT_CALL(spiDriver, select());
+	EXPECT_CALL(spiDriver, write(0xC0));
+	EXPECT_CALL(spiDriver, deselect());
+
+	mcp.reset();
+}
+{% endhighlight %}
+
+<p>Transmit it:<br />
+{% highlight cpp %}
+class Mcp2515Core {
+public:
+	Mcp2515Core(SpiDriver& spiDriver) :
+		spiDriver(spiDriver) {
+	}
+
+	void reset() {
+		spiDriver.select();
+		spiDriver.write(0xC0);
+		spiDriver.deselect();
+	}
+
+private:
+	SpiDriver& spiDriver;
+};
+{% endhighlight %}
+
+<p>That's it for our first core instruction.</p>
+<p>To be fair, the reset instruction is by far the simplest one to be found in the specification. Eventually we'll end up with an Mcp2515Core class that implements all the core instructions according to the data sheet definitions. It will represent the descriptions, tables and figures in chapter 12.</p>
+<h2>Conclusion</h2>
+<p>The class hierarchy created so far is summarized in the following diagram. It shows that our production class Mcp2515Core depends only on the interface to SPI we established at the beginning.<br />
+<img src="{{ site.baseurl }}/assets/class_diagram-2-1024x484.png" alt="" width="525" height="248" class="alignnone size-large wp-image-120" /></p>
+<p>What else did we achieve?</p>
+<p>No hardware needed so far. This is great, because debugging on real hardware takes time. And not having hardware means not to be coupled too much to it.</p>
+<p>Specification written in executable form, i.e. data sheet translated into test code.</p>
+<h2>Where to go from here</h2>
+<p>We utilized C++ polymorphism to decouple SPI hardware interaction from the actual device driver behavior. Sadly, this doesn't come at no cost. Each and every call to reset() will have a runtime overhead for calling that virtual method via the base class reference.<br />
+An evaluation of that cost needs to be done, also with having in mind other core instructions like read and write. They are  going to be needed far more often than reset during typical operation.</p>
+<p>How about an actual SPI driver by the way? Real hardware is always interesting. So as one of the next steps, another SpiDriver implementation is to be created and compiled for the target board. We can then plug it into an Mcp2515Core instance and inspect actual traffic on the SPI lines.</p>
+<p>Please let me know what you think about this first article on my blog via twitter <strong>@ronalterde</strong>!</p>
+<h2>Sample code</h2>
+<p>You can get the code at <a href="https://github.com/ronalterde/mcp-tdd-part1">github.com/ronalterde/mcp-tdd-part1</a>. Feel free to add the implementation of the various instructions I have not provided yet.</p>
+<h2>References</h2>
+<p id="fn-1"><a href="http://blog.cleancoder.com/uncle-bob/2014/12/17/TheCyclesOfTDD.html">Robert C. Martin: The Cycles of TDD</a></p>
+<p><a href="https://martinfowler.com/articles/mocksArentStubs.html">Martin Fowler: Mocks Aren't Stubs</a></p>

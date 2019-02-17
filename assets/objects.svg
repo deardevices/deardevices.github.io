@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1052.3622"
+   height="744.09448"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="objects.svg"
+   inkscape:export-filename="/home/steffen/Schreibtisch/objects.png"
+   inkscape:export-xdpi="150"
+   inkscape:export-ydpi="150">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lend"
+       style="overflow:visible;">
+      <path
+         id="path4026"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-2"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4026-9"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-1"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4026-94"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-5"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4026-0"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.3873551"
+     inkscape:cx="730.64096"
+     inkscape:cy="247.6889"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1215"
+     inkscape:window-height="776"
+     inkscape:window-x="65"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-308.2677)">
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect2985"
+       width="232.14066"
+       height="260.50598"
+       x="670.17517"
+       y="459.91382" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.64401317;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path2987"
+       sodipodi:cx="535.71429"
+       sodipodi:cy="328.79074"
+       sodipodi:rx="178.57143"
+       sodipodi:ry="20.714285"
+       d="m 714.28572,328.79074 a 178.57143,20.714285 0 1 1 -357.14285,0 178.57143,20.714285 0 1 1 357.14285,0 z"
+       transform="matrix(0.65129647,0,0,0.56808162,437.56926,273.5396)" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.64542246;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path2987-3"
+       sodipodi:cx="535.71429"
+       sodipodi:cy="328.79074"
+       sodipodi:rx="178.57143"
+       sodipodi:ry="20.714285"
+       d="m 714.28572,328.79074 a 178.57143,20.714285 0 1 1 -357.14285,0 178.57143,20.714285 0 1 1 357.14285,0 z"
+       transform="matrix(0.65018125,0,0,0.56808162,437.93267,533.28479)" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect3775"
+       width="226.90959"
+       height="24.346354"
+       x="672.74457"
+       y="693.37891" />
+    <rect
+       style="fill:#ffffff;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;fill-opacity:1"
+       id="rect2985-6"
+       width="232.14066"
+       height="119.07744"
+       x="670.17517"
+       y="848.51599"
+       inkscape:export-filename="/home/steffen/Schreibtisch/text3800-0.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.64401307999999990;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path2987-2"
+       sodipodi:cx="535.71429"
+       sodipodi:cy="328.79074"
+       sodipodi:rx="178.57143"
+       sodipodi:ry="20.714285"
+       d="m 714.28572,328.79074 c 0,11.44018 -79.94915,20.71429 -178.57143,20.71429 -98.62227,0 -178.57142,-9.27411 -178.57142,-20.71429 0,-11.44018 79.94915,-20.71428 178.57142,-20.71428 98.62228,0 178.57143,9.2741 178.57143,20.71428 z"
+       transform="matrix(0.65129647,0,0,0.56808162,437.56927,662.14179)"
+       inkscape:export-filename="/home/steffen/Schreibtisch/text3800-0.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.64542242;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path2987-3-6"
+       sodipodi:cx="535.71429"
+       sodipodi:cy="328.79074"
+       sodipodi:rx="178.57143"
+       sodipodi:ry="20.714285"
+       d="m 714.28572,328.79074 c 0,11.44018 -79.94915,20.71429 -178.57143,20.71429 -98.62227,0 -178.57142,-9.27411 -178.57142,-20.71429 0,-11.44018 79.94915,-20.71428 178.57142,-20.71428 98.62228,0 178.57143,9.2741 178.57143,20.71428 z"
+       transform="matrix(0.65018125,0,0,0.56808162,437.93267,781.887)"
+       inkscape:export-filename="/home/steffen/Schreibtisch/text3800-0.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect3775-1"
+       width="227.05119"
+       height="24.346354"
+       x="672.72479"
+       y="941.98114"
+       inkscape:export-filename="/home/steffen/Schreibtisch/text3800-0.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text4000"
+       y="913.57233"
+       x="746.84607"
+       style="font-size:11.00000095px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"
+       inkscape:export-filename="/home/steffen/Schreibtisch/text3800-0.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         style="font-size:20px"
+         y="913.57233"
+         x="746.84607"
+         id="tspan4002"
+         sodipodi:role="line">packfile</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4000-8"
+       y="777.51862"
+       x="802.74347"
+       style="font-size:11px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"
+       inkscape:export-filename="/home/steffen/Schreibtisch/text3800-0.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         style="font-size:16px"
+         y="777.51862"
+         x="802.74347"
+         id="tspan4002-7"
+         sodipodi:role="line">delta</tspan><tspan
+         style="font-size:16px"
+         y="797.51855"
+         x="802.74347"
+         sodipodi:role="line"
+         id="tspan4668">compression</tspan></text>
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path4463"
+       d="m 786.12639,732.34832 0.46589,101.5124"
+       style="fill:none;stroke:#000000;stroke-width:1.79999983;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)"
+       inkscape:export-filename="/home/steffen/Schreibtisch/text3800-0.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path4463-3"
+       d="m 569.4119,488.33297 150.47354,36.35755"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)"
+       inkscape:export-filename="/home/steffen/Schreibtisch/text3800-0.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path4463-3-7"
+       d="M 508.71463,607.09747 759.19455,592.80329"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)"
+       inkscape:export-filename="/home/steffen/Schreibtisch/text3800-0.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path4463-3-7-3"
+       d="m 554.62499,736.57331 154.67898,-57.8458"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)"
+       inkscape:export-filename="/home/steffen/Schreibtisch/text3800-0.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:3.99770641000000015;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path3798"
+       sodipodi:cx="322.14285"
+       sodipodi:cy="660.2193"
+       sodipodi:rx="97.14286"
+       sodipodi:ry="50.714287"
+       d="m 419.28571,660.2193 c 0,28.00873 -43.49234,50.71429 -97.14286,50.71429 -53.65052,0 -97.14286,-22.70556 -97.14286,-50.71429 0,-28.00873 43.49234,-50.71429 97.14286,-50.71429 53.65052,0 97.14286,22.70556 97.14286,50.71429 z"
+       transform="matrix(0.56331879,0,0,0.44430778,594.3534,233.87553)"
+       inkscape:export-filename="/home/steffen/Schreibtisch/text3800-0.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <text
+       xml:space="preserve"
+       style="font-size:6.1965065px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="750.93188"
+       y="533.18097"
+       id="text3800"
+       sodipodi:linespacing="125%"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan3802"
+         x="750.93188"
+         y="533.18097"
+         style="font-size:16px">blob 1</tspan></text>
+    <g
+       id="g4743"
+       transform="translate(234.35539,-34.345186)"
+       inkscape:export-filename="/home/steffen/Schreibtisch/text3800-0.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150">
+      <rect
+         y="466.64792"
+         x="260"
+         height="87.14286"
+         width="75.714287"
+         id="rect4718"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3800-9"
+         y="459.59717"
+         x="270.68137"
+         style="font-size:6.1965065px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:16px"
+           y="459.59717"
+           x="270.68137"
+           id="tspan3802-2"
+           sodipodi:role="line">main.c</tspan></text>
+      <path
+         inkscape:connector-curvature="0"
+         id="path4741"
+         d="m 273.57143,488.21933 48.57142,0"
+         style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1, 3;stroke-dashoffset:0" />
+    </g>
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect4718-2"
+       width="75.714287"
+       height="87.14286"
+       x="436.06241"
+       y="554.67798"
+       inkscape:export-filename="/home/steffen/Schreibtisch/text3800-0.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <text
+       xml:space="preserve"
+       style="font-size:6.1965065px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="446.74377"
+       y="547.6272"
+       id="text3800-9-3"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/steffen/Schreibtisch/text3800-0.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan3802-2-7"
+         x="446.74377"
+         y="547.6272"
+         style="font-size:16px">main.c</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1, 3;stroke-dashoffset:0"
+       d="m 449.63384,576.24936 48.57142,0"
+       id="path4741-5"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/steffen/Schreibtisch/text3800-0.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect4718-22"
+       width="75.714287"
+       height="87.14286"
+       x="481.19366"
+       y="697.64893"
+       inkscape:export-filename="/home/steffen/Schreibtisch/text3800-0.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <text
+       xml:space="preserve"
+       style="font-size:6.1965065px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="491.87503"
+       y="690.59821"
+       id="text3800-9-8"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/steffen/Schreibtisch/text3800-0.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan3802-2-9"
+         x="491.87503"
+         y="690.59821"
+         style="font-size:16px">main.c</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1, 3;stroke-dashoffset:0"
+       d="m 494.7651,719.22035 48.57142,0"
+       id="path4741-7"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/steffen/Schreibtisch/text3800-0.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1, 3;stroke-dashoffset:0"
+       d="m 449.63384,596.32779 48.57142,0"
+       id="path4741-5-3"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/steffen/Schreibtisch/text3800-0.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1, 3;stroke-dashoffset:0"
+       d="m 494.7651,739.47461 48.57142,0"
+       id="path4741-7-6"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/steffen/Schreibtisch/text3800-0.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1, 3;stroke-dashoffset:0"
+       d="m 494.7651,759.72885 48.57142,0"
+       id="path4741-7-1"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/steffen/Schreibtisch/text3800-0.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:3.99770641;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path3798-8"
+       sodipodi:cx="322.14285"
+       sodipodi:cy="660.2193"
+       sodipodi:rx="97.14286"
+       sodipodi:ry="50.714287"
+       d="m 419.28571,660.2193 c 0,28.00873 -43.49234,50.71429 -97.14286,50.71429 -53.65052,0 -97.14286,-22.70556 -97.14286,-50.71429 0,-28.00873 43.49234,-50.71429 97.14286,-50.71429 53.65052,0 97.14286,22.70556 97.14286,50.71429 z"
+       transform="matrix(0.56331879,0,0,0.44430778,633.2189,300.91743)"
+       inkscape:export-filename="/home/steffen/Schreibtisch/text3800-0.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:3.99770641;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path3798-8-4"
+       sodipodi:cx="322.14285"
+       sodipodi:cy="660.2193"
+       sodipodi:rx="97.14286"
+       sodipodi:ry="50.714287"
+       d="m 419.28571,660.2193 c 0,28.00873 -43.49234,50.71429 -97.14286,50.71429 -53.65052,0 -97.14286,-22.70556 -97.14286,-50.71429 0,-28.00873 43.49234,-50.71429 97.14286,-50.71429 53.65052,0 97.14286,22.70556 97.14286,50.71429 z"
+       transform="matrix(0.56331879,0,0,0.44430778,582.2062,379.20425)"
+       inkscape:export-filename="/home/steffen/Schreibtisch/text3800-0.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150" />
+    <text
+       xml:space="preserve"
+       style="font-size:6.1965065px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="789.85992"
+       y="600.22284"
+       id="text3800-6"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/steffen/Schreibtisch/text3800-0.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan3802-1"
+         x="789.85992"
+         y="600.22284"
+         style="font-size:16px">blob 2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:6.1965065px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="738.68701"
+       y="678.50964"
+       id="text3800-0"
+       sodipodi:linespacing="125%"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150"><tspan
+         sodipodi:role="line"
+         id="tspan3802-6"
+         x="738.68701"
+         y="678.50964"
+         style="font-size:16px">blob 3</tspan></text>
+  </g>
+</svg>

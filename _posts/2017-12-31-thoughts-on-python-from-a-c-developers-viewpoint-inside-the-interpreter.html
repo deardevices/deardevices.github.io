@@ -1,0 +1,76 @@
+---
+layout: post
+title: 'Thoughts on Python from a C++ developer''s viewpoint: Inside the interpreter'
+date: 2017-12-31
+---
+<p>In this second article of the series on Python we're going to cover some really great features of the interactive interpreter. We'll see that a full-fledged debugger may not even be necessary to get serious work done in Python.</p>
+
+<!--more-->
+
+<p>Python (usually) comes with an interactive interpreter that supports executing your code one line after another -- just like the shell does. This Read-Eval-Print-Loop (<a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop">REPL</a>) evaluates your input as soon as you press ENTER.</p>
+<p>Consider a short example how this might look like after firing up the the interpreter <em>python3</em> on the shell:<br />
+{% highlight python %}
+>>> for i in range(5):
+...  print(i)
+...
+0
+1
+2
+3
+4
+>>>
+{% endhighlight %}
+<p>We can also import an existing module - this is where it gets really interesting for prototyping and debugging. Consider the following script:</p>
+{% highlight python %}
+""" demo.py """
+def foo():
+    print('foo')
+{% endhighlight %}
+
+<p>Let's now import that module from the interactive interpreter and call <em>foo()</em> on it:
+{% highlight python %}
+>>> import demo
+>>> demo.foo()
+foo
+>>>
+{% endhighlight %}
+
+<p>What if we now change some part of the original source file and call <em>foo()</em> again?</p>
+{% highlight python %}
+""" demo.py """
+def foo():
+    print('bar')
+{% endhighlight %}
+
+{% highlight python %}
+>>> demo.foo()
+foo
+>>>
+{% endhighlight %}
+
+<p>As we can see, the module contents are not reloaded automatically. So let's fix that by using <em>importlib</em>:</p>
+{% highlight python %}
+>>> import importlib
+>>> importlib.reload(demo)
+>>> demo.foo()
+bar
+>>>
+{% endhighlight %}
+
+<p>Isn't that great? We can develop a module in a step-by-step manner, being able to test its behavior from the interpreter immediately. This works best if we keep functions and classes decoupled from each other inside modules. As a side effect, this might even lead to improved designs.</p>
+<p>Another neat feature: <a href="http://tiswww.case.edu/php/chet/readline/rluserman.html#SEC22">readline vi mode</a> is supported. Let's try this by putting the following into your <em>~/.inputrc</em>:<br />
+{% highlight bash %}
+set editing-mode vi
+set keymap vi
+set show-mode-in-prompt on
+{% endhighlight %}
+
+<p>Now the Python interpreter prompt shows a <em>+</em> sign at the beginning of each line to signalize insert mode. It will change to <em>:</em> in normal mode:<br />
+{% highlight bash %}
+$ python3
++>>> 
+:>>>
+{% endhighlight %}
+
+<h2>Conclusion</h2>
+<p>The interactive interpreter seems to be a great tool for debugging and prototyping. What else do you think would be interesting to talk about? Just contact me on twitter: <a href="https://twitter.com/ronalterde">@ronalterde</a>.</esc></p>
