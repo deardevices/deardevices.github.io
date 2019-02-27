@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Embedded Programming: Loose Coupling Best Practices (Part 1/3)"
+image: "/img/components.png"
 ---
 
 When creating Embedded Software, system complexity that grows over lifetime makes it increasingly harder to reason about certain behaviors of the program.
