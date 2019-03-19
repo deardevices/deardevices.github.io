@@ -6,6 +6,8 @@ image: "/img/components.png"
 
 After talking about decoupling at the object level in [part 1]({{ site.baseurl }}{% post_url 2019-02-05-embedded-loose-coupling-part1 %}) of this series, we are going to explore another method in this article. This will be based on yet another stage of the software build process -- *the linking*.
 
+Note: This is a series of three articles. You can find the other ones here: [Part 1]({{ site.baseurl }}{% post_url 2019-02-05-embedded-loose-coupling-part1 %}), [Part 3]({{ site.baseurl }}{% post_url 2019-03-19-embedded-loose-coupling-part3 %}).
+
 The previous article was more or less based on the concept of *Seams*, introduced by Michael Feathers in [Working Effectively with Legacy Code](https://www.oreilly.com/library/view/working-effectively-with/0131177052/). So let's see what he has to say about *Link* Seams:
 
 > In many language systems, compilation isn’t the last step of the build process. The compiler produces an intermediate representation of the code, and that representation contains calls to code in other files. Linkers combine these representations. They resolve each of the calls so that you can have a complete program at runtime.

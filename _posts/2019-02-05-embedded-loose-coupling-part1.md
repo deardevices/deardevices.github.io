@@ -7,6 +7,8 @@ image: "/img/components.png"
 When creating Embedded Software, system complexity that grows over lifetime makes it increasingly harder to reason about certain behaviors of the program.
 As always in engineering, it helps to divide **one big problem** into **several smaller problems** in order to be able to eventually solve it. This is what this article is all about.
 
+Note: This is a series of three articles. You can find the other ones here: [Part 2]({{ site.baseurl }}{% post_url 2019-02-26-embedded-loose-coupling-part2 %}), [Part 3]({{ site.baseurl }}{% post_url 2019-03-19-embedded-loose-coupling-part3 %}).
+
 In his book [Working Effectively with Legacy Code](https://www.oreilly.com/library/view/working-effectively-with/0131177052/), Michael Feathers introduces the idea of a **seam** as:
 > a place where you can alter behavior in your program without editing in that place.
 

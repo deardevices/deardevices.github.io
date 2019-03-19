@@ -6,6 +6,8 @@ image: "/img/components.png"
 
 After talking about decoupling units at the linker level in part 2, this last part of the series is going to be about achieving the same goal, but at the **preprocessing stage** of the build process. At the end of the article, you will find a comparison of all three methods.
 
+Note: This is a series of three articles. You can find the other ones here: [Part 2]({{ site.baseurl }}{% post_url 2019-02-26-embedded-loose-coupling-part2 %}), [Part 3]({{ site.baseurl }}{% post_url 2019-03-19-embedded-loose-coupling-part3 %}).
+
 Let's start with another quote from Michael Feathers. In [Working Effectively with Legacy Code](https://www.oreilly.com/library/view/working-effectively-with/0131177052/), he tells us about yet another type of seams:
 > Only a couple of languages have a build stage before compilation. C and C++ are the most common of them. [...] I’m actually glad that C and C++ have a preprocessor because the preprocessor gives us more seams.
 
