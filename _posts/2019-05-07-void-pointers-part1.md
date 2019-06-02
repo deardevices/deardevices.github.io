@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Practical Uses of void Pointers in the C Language (part 1/3)"
+title: "3 Practical Uses of void Pointers in the C Language (part 1/3)"
 image: "/img/arrows.jpg"
 ---
 
@@ -28,7 +28,7 @@ This makes sense: The compiler cannot infer what type of value is stored at the 
 
 Now that we have talked about the basic idea, let's take a look at three different uses you may find in software projects out there.
 
-## Practical Use: Generic interface functions, handlers
+## Practical Use #1: Generic interface functions, handlers
 Imagine a function that you write once and re-use for any type of data afterwards. This sounds pretty simple at first. But how could that be done?
 
 After all, functions have certain *signatures*:
@@ -80,7 +80,7 @@ This concludes the first part already. Here's a thought on the explicit cast nee
 
 Still, this is a great way to write reusable functions in C that can be used for any type of arguments.
 
-In the upcoming two parts of this series, we will cover two more practical examples of how to use void pointers. Stay tuned!
+In the upcoming two parts of this series, we will cover **two more practical examples** of how to use void pointers. Stay tuned!
 
 ## References
 - [Type Safety (Wikipedia)](https://en.wikipedia.org/wiki/Type_safety)
