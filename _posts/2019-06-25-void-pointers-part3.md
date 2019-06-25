@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "3 Practical Uses of void Pointers in the C Language (part 3/3)"
+image: "/img/arrows.jpg"
 ---
 
 [Part 2]({% post_url 2019-06-08-void-pointers-part2 %}) was all about encapsulation, Abstract Data Types and how void pointers may help you implement these concepts. In this third and last part, we are going to see *yet another use* of them. After that, we will go and find out how void pointers are used in *popular open source projects out there*.

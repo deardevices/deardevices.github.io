@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "3 Practical Uses of void Pointers in the C Language (part 2/3)"
+image: "/img/arrows.jpg"
 ---
 
 In [Part 1]({% post_url 2019-05-07-void-pointers-part1 %}), we talked about how to use void pointers for implementing generic interface functions. Now we're going to see how to take advantage of them to hide implementation details.
