@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="ccr.svg"
+   inkscape:export-filename="/home/steffen/src/blog/deardevices_gitlab/img/ccr.svg.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="316.33976"
+     inkscape:cy="741.94724"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1853"
+     inkscape:window-height="1002"
+     inkscape:window-x="67"
+     inkscape:window-y="41"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#0000d2;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="70.823723"
+       y="94.233139"
+       id="text817"><tspan
+         sodipodi:role="line"
+         x="70.823723"
+         y="94.233139"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Noto Color Emoji';-inkscape-font-specification:'Noto Color Emoji Bold';text-align:center;text-anchor:middle;fill:#0000d2;fill-opacity:1;stroke-width:0.26458332"
+         id="tspan821">checkout</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.69999999;stroke:none;stroke-width:0.26458332;"
+       x="70.856712"
+       y="85.12603"
+       id="text817-4"><tspan
+         sodipodi:role="line"
+         x="70.856712"
+         y="85.12603"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Noto Color Emoji';-inkscape-font-specification:'Noto Color Emoji Bold';text-align:center;text-anchor:middle;stroke-width:0.26458332;fill:#000000;fill-opacity:0.69999999;"
+         id="tspan821-6">commit</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ff6900;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="69.25309"
+       y="79.914268"
+       id="text817-6"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan815-3"
+         x="69.25309"
+         y="89.278038"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Noto Color Emoji';-inkscape-font-specification:'Noto Color Emoji Bold';text-align:center;text-anchor:middle;fill:#ff6900;fill-opacity:1;stroke-width:0.26458332" /><tspan
+         sodipodi:role="line"
+         x="69.25309"
+         y="102.5072"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Noto Color Emoji';-inkscape-font-specification:'Noto Color Emoji Bold';text-align:center;text-anchor:middle;fill:#ff6900;fill-opacity:1;stroke-width:0.26458332"
+         id="tspan821-9">reset</tspan></text>
+    <rect
+       style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect900"
+       width="74.033661"
+       height="52.117558"
+       x="36.615925"
+       y="64.208244"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+  </g>
+</svg>
