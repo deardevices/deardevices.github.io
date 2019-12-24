@@ -16,6 +16,7 @@ description: "Embedded Software Endeavors"
 
 # List of links in the navigation bar
 navbar-links:
+  All Posts: "allposts"
   About Me: "aboutme"
   Impressum: "impressum"
   # Resources:
