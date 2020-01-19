@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "KNX Link-Layer Acknowledgment: A brief analysis."
+title: "KNX Link-Layer Ack: A brief analysis."
 draft: true
 ---
 
