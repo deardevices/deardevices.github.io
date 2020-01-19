@@ -16,6 +16,7 @@ layout: null
     <link>{{ site.url }}</link>
     <link href="{{ site.url }}/feed.xml" rel="self" type="application/rss+xml" />
     {% for post in site.posts limit:20 %}
+	  {% unless post.draft %}
       <item>
         <title>{{ post.title | xml_escape }}</title>
         <description>
@@ -26,6 +27,7 @@ layout: null
         <link>{{ site.url }}{{ post.url }}</link>
         <guid isPermaLink="true">{{ site.url }}{{ post.url }}</guid>
       </item>
+	  {% endunless %}
     {% endfor %}
   </channel>
 </rss>
