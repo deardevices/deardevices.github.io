@@ -1,7 +1,6 @@
 ---
 layout: post
 title: "KNX Link-Layer Ack: A brief analysis."
-draft: true
 ---
 
 KNX is a two-wire bus for building automation. It operates at a pretty low bitrate, which makes it a good candidate for analyzing communications using a cheap logic analyzer. This article is about the Acknowlegement procedure at the KNX Link Layer.
