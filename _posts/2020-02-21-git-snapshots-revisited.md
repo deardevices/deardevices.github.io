@@ -1,5 +1,6 @@
 ---
 layout: post
+image: "/assets/gitgraph/gitgraph_bar_thumb.png"
 ---
 
 A great way to approach Git, I believe, is to explore its inner workings. To do that, let's take a closer look at an analogy I made up previously, and create some useful graphs from real repositories.
