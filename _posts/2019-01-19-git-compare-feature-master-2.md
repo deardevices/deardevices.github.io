@@ -3,7 +3,7 @@ layout: post
 title: "Git: Compare feature branches to master (Part 2/2)"
 ---
 
-In the [previous article](https://steffen.ronalter.de/2018/12/25/git-compare-feature-master/) we've seen how to ask Git for changes introduced by a particular branch. This time, instead of changes, we would like to know which *commits* were introduced by a branch -- that is, the *hashes* assigned to them.
+In the [previous article]({% post_url 2018-12-25-git-compare-feature-master %}) we've seen how to ask Git for changes introduced by a particular branch. This time, instead of changes, we would like to know which *commits* were introduced by a branch -- that is, the *hashes* assigned to them.
 
 To figure out how to do that, let's take a look at the first example from last time:
 ```

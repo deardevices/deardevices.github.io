@@ -4,7 +4,7 @@ title: Test-driving the MCP2515 CAN Controller (Part 2)
 date: 2017-10-15
 ---
 
-<p>It turns out the device driver design established <a href="http://steffen.ronalter.de/2017/10/08/test-driving-the-mcp2515-can-controller-part-1/">previously</a> has a serious drawback. While the <em>SpiDriver</em> interface enables unit testing, the cost of polymorphism has to be paid also in production code. In this article you are going to see how high that cost is, i.e. how much extra code the compiler actually generates for providing virtual methods. We will also introduce one possible solution to overcome that additional cost.</p>
+<p>It turns out the device driver design established <a href="{% post_url 2017-10-08-test-driving-the-mcp2515-can-controller-part-1 %}">previously</a> has a serious drawback. While the <em>SpiDriver</em> interface enables unit testing, the cost of polymorphism has to be paid also in production code. In this article you are going to see how high that cost is, i.e. how much extra code the compiler actually generates for providing virtual methods. We will also introduce one possible solution to overcome that additional cost.</p>
 
 <!--more-->
 
