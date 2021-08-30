@@ -7,8 +7,8 @@ permalink: /impressum/
 ## Angaben gemäß § 5 TMG:
 ```
 Steffen Ronalter
-Yorckstr. 9
-63739 Aschaffenburg
+Kolpingstr. 1a
+63820 Elsenfeld
 ```
 
 ## Kontakt:
@@ -19,8 +19,8 @@ E-Mail: ronalterde (at) gmail.com
 ## Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:
 ```
 Steffen Ronalter
-Yorckstr. 9
-63739 Aschaffenburg
+Kolpingstr. 1a
+63820 Elsenfeld
 ```
 
 ## Haftung für Inhalte
