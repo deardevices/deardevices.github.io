@@ -101,7 +101,7 @@ url-pretty: "deardevices.com"  # eg. "deanattali.com/beautiful-jekyll"
 #gtag: ""
 
 # Fill in your Google Analytics ID to track your website using GA
-google_analytics: "UA-112087068-2"
+# google_analytics: "UA-112087068-2"
 
 # Google Tag Manager ID
 #gtm: ""
@@ -118,8 +118,8 @@ google_analytics: "UA-112087068-2"
 # --- Comments --- #
 
 # Fill in your Disqus shortname (NOT the userid) if you want to support Disqus comments
-disqus:
-    shortname: ronalterde
+# disqus:
+    # shortname: ronalterde
 
 # To use Facebook Comments, fill in a Facebook App ID
 # fb_comment_id: ""
