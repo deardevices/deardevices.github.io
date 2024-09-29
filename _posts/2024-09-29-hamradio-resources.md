@@ -8,9 +8,9 @@ I got into a new hobby recently: Amateur (a.k.a. Ham) Radio. This article will b
 
 There is a variety of topics folks get involved with in Ham Radio. I believe many of those align well with what is usually covered on this blog: Embedded Systems, Software, and, maybe, a bit more of Electrical Engineering in future articles.
 
-Being a new operator, I'm trying to take a look at just one item at a time. That way I'm hoping to identify one or more disciplines that would be most fun for me. The following is a **loose collection of aspects I've learned about** since I got my license a few months ago. I'll probably use it as a reference going forward, hoping it might be useful for other people out there as well.
+Being a new operator, I'm trying to take a look at just one item at a time. That way I'm hoping to identify one or more disciplines that would be most fun for me. The following is a *loose collection of aspects I've learned about* since I got my license a few months ago. I'll probably use it as a reference going forward, hoping it might be useful for other people out there as well.
 
-This list will probably keep growing as I'm getting more into the hobby. Therefore, I'll update it occasionally. **Last Update: 2024-08-30**.
+This list will probably keep growing as I'm getting more into the hobby. Therefore, I'll update it occasionally. **Last Update: 2024-09-29**.
 
 Source of title image: [Wikipedia](https://de.m.wikipedia.org/wiki/Datei:International_amateur_radio_symbol.svg).
 
@@ -19,7 +19,7 @@ Source of title image: [Wikipedia](https://de.m.wikipedia.org/wiki/Datei:Interna
 * [Walt, K4OGO](https://www.youtube.com/@COASTALWAVESWIRES): I like watch Walt's channel for content on antennas and general shortwave experiments.
 * [Michael (German)](https://www.youtube.com/@DL2YMR): I watch this channel for local (German) specifics.
 
-## Exam Training
+## Exam Training (in German, most of it)
 * Moltrecht's books: [Klasse E](https://www.amazon.de/Amateurfunk-Lehrgang-Amateurfunkzeugnis-Klasse-allen-Pr%C3%BCfungsfragen/dp/3881803645) / [Klasse A](https://www.amazon.de/Amateurfunk-Lehrgang-Technik-Amateurfunkzeugnis-Erl%C3%A4uterungen-Pr%C3%BCfungsfragen/dp/3881803890) (I've used both).
 * [HamRadioTrainer](http://www.hamradiotrainer.de/) software (Windows; supports wine)
 * [Anki](https://ankiweb.net/) flashcards: I've created cards for it on my own so I could study on the go.
@@ -29,7 +29,7 @@ Source of title image: [Wikipedia](https://de.m.wikipedia.org/wiki/Datei:Interna
 Building antennas seems to be one super interesting aspect of Ham Radio. It looks like one can do a lot using simple wire and (optionally) a fiberglass pole. The following antennas I've built so far:
 1. Dipole antennas for 10m and 20m, mostly in an Inverted-V style.
 1. End-fed dipole for 20m: easier to mount than a regular dipole but needs 49:1 Un-Un (transformer) for impedance conversion as impedance is very high at the end position of the antenna. I've mounted it both horizontally as well as vertically, using a 10m Spiderbeam mast.
-1. Groundplane for 70cm
+1. Groundplane for 70cm.
 
 All of these are portable setups; I've yet to find a good solution for mounting things permanently.
 
@@ -43,7 +43,7 @@ For analyzing antenna impedance there's a great little device available: the [na
 ). Among other things, it measures the Voltage Standing Wave Ratio (VSWR) which is important to know to make sure the antenna is matched to the transceiver. Matching the two is important for maximum power transmission: transceivers have a 50 ohms output impedance and therefore we need to ensure 50 ohms at its output (see [Wikipedia: Impedance Matching](https://en.wikipedia.org/wiki/Impedance_matching)).
 
 ### Antenna Tuner
-After experimenting with resonant antennas (see [Wikipedia: Resonant Antennas](https://en.wikipedia.org/wiki/Antenna_(radio)#Resonant_antennas) I've started looking into wire antennas that are not exactly 1/2 wavelength long.
+After experimenting with resonant antennas (see [Wikipedia: Resonant Antennas](https://en.wikipedia.org/wiki/Antenna_(radio)#Resonant_antennas)) I've started looking into wire antennas that are not exactly 1/2 wavelength long.
 
 After working with a borrowed manual tuner for a while I ordered an [ATU-100](https://github.com/Dfinitski/N7DDC-ATU-100-mini-and-extended-boards) automatic antenna tuner kit and assembled it.
 
